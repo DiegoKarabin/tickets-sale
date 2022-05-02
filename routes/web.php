@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Models\Chair;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,20 +17,18 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'homeImageUrl' => url('images/congreso-expansion.jpg')
-    ]);
+Route::get('/', fn () => Inertia::render('Welcome', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+    'homeImageUrl' => url('images/congreso-expansion.jpg')
+]));
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+    Route::resource('orders', OrderController::class);
+    Route::get('/chairs', fn () => Inertia::render('Chairs', [
+        'chairs' => Chair::all()
+    ]))->name('chairs');
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::resource('orders', OrderController::class);
-
-Route::get('/chairs', fn() => Inertia::render('Chairs'))->name('chairs');
 
 require __DIR__.'/auth.php';
