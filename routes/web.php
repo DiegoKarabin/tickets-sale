@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChairController;
 use App\Http\Controllers\OrderController;
 use App\Models\Chair;
 use Illuminate\Foundation\Application;
@@ -26,9 +27,7 @@ Route::get('/', fn () => Inertia::render('Welcome', [
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
     Route::resource('orders', OrderController::class);
-    Route::get('/chairs', fn () => Inertia::render('Chairs', [
-        'chairs' => Chair::all()
-    ]))->name('chairs');
+    Route::get('/chairs/select', [ChairController::class, 'select'])->name('chairs.select');
 });
 
 require __DIR__.'/auth.php';
