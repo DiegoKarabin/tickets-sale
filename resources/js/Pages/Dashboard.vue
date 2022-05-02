@@ -23,7 +23,7 @@ import { Head } from '@inertiajs/inertia-vue3';
                     </div>
 
                     <div class="p-6 text-gray-300">
-                        <a href="" class="text-lg">
+                        <a :href="route('chairs')" class="text-lg">
                             Ver esquema de sillas vendidas
                         </a>
                     </div>

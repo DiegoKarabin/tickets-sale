@@ -30,4 +30,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('orders', OrderController::class);
 
+Route::get('/chairs', fn() => Inertia::render('Chairs'))->name('chairs');
+
 require __DIR__.'/auth.php';
