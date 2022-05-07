@@ -28,6 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
     Route::resource('orders', OrderController::class);
     Route::get('/chairs/select', [ChairController::class, 'select'])->name('chairs.select');
+    Route::post('/chairs/occupy', [ChairController::class, 'occupy'])->name('chairs.occupy');
 });
 
 require __DIR__.'/auth.php';

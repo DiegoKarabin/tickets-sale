@@ -13,8 +13,16 @@ class ChairController extends Controller
         $order_id = $request->query('order_id');
 
         return Inertia::render('Chairs/Select', [
-            'order_id' => $order_id,
+            'orderId' => intval($order_id),
             'chairs' => Chair::all()
         ]);
+    }
+
+    public function occupy(Request $request)
+    {
+        $order_id = $request->query('order_id');
+        $selected_chairs = $request->input('selectedChairs');
+
+        Chair::whereIn('id', $selected_chairs)->update(['order_id' => $order_id]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chairs', function (Blueprint $table) {
-            $table->id();
-            $table->string('code')->nullable();
-            $table->unsignedInteger('row');
-            $table->unsignedInteger('column');
-            $table->timestamps();
+        Schema::table('chairs', function (Blueprint $table) {
+            $table->unsignedBigInteger('order_id')->nullable();
+
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
@@ -29,6 +28,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chairs');
+        Schema::table('chairs', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
+        });
     }
 };

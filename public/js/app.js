@@ -21583,17 +21583,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    chair: Object
+  computed: {
+    colorClass: function colorClass() {
+      var selected = this.selected;
+      var output = 'bg-red-900 hover:bg-yellow-300';
+
+      if (this.occupied) {
+        output = 'bg-gray-800 cursor-default hover:cursor-default';
+      } else if (selected) {
+        output = 'bg-green-600 hover:bg-lime-500';
+      }
+
+      return output;
+    },
+    occupied: function occupied() {
+      return !!this.chair.order_id;
+    }
   },
   data: function data() {
     return {
       selected: false
     };
   },
+  props: {
+    chair: Object
+  },
   methods: {
     toggleSelected: function toggleSelected() {
+      if (this.occupied) return;
       this.selected = !this.selected;
+      this.$emit('toggle-selected', {
+        id: this.chair.id
+      });
     }
   }
 });
@@ -21614,15 +21635,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Components_Navbar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Navbar.vue */ "./resources/js/Components/Navbar.vue");
 /* harmony import */ var _Components_Chair_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Chair.vue */ "./resources/js/Components/Chair.vue");
+var __default__ = {
+  methods: {
+    toggleSelected: function toggleSelected(_ref) {
+      var id = _ref.id;
+      this.$emit('toggle-selected', {
+        id: id
+      });
+    }
+  }
+};
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/Object.assign(__default__, {
   props: {
-    chairs: Array
+    chairs: Array,
+    selectEnabled: Boolean
   },
-  setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
+  setup: function setup(__props, _ref2) {
+    var expose = _ref2.expose;
     expose();
     var __returned__ = {
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
@@ -21635,7 +21667,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     return __returned__;
   }
-});
+}));
 
 /***/ }),
 
@@ -22498,18 +22530,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 /* harmony import */ var _Components_Navbar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/Navbar.vue */ "./resources/js/Components/Navbar.vue");
 /* harmony import */ var _Components_Chairs_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/Chairs.vue */ "./resources/js/Components/Chairs.vue");
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: {
-    chairs: Array
+var __default__ = {
+  data: function data() {
+    return {
+      selectedChairs: []
+    };
   },
-  setup: function setup(__props, _ref) {
-    var expose = _ref.expose;
+  methods: {
+    manageChairSelection: function manageChairSelection(_ref) {
+      var id = _ref.id;
+      var selectedChairs = this.form.selectedChairs;
+      var index = selectedChairs.indexOf(id);
+
+      if (index == -1) {
+        selectedChairs.push(id);
+      } else {
+        selectedChairs.splice(index, 1);
+      }
+    },
+    submit: function submit() {
+      var form = this.form;
+
+      if (form.selectedChairs.length > 0) {
+        form.post(route('chairs.occupy', {
+          order_id: this.orderId
+        }));
+      }
+    }
+  }
+};
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/Object.assign(__default__, {
+  props: {
+    chairs: Array,
+    orderId: Number
+  },
+  setup: function setup(__props, _ref2) {
+    var expose = _ref2.expose;
     expose();
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
+      selectedChairs: []
+    });
     var __returned__ = {
+      form: form,
+      Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
+      useForm: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm,
       Navbar: _Components_Navbar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       Chairs: _Components_Chairs_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
     };
@@ -22519,7 +22587,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     return __returned__;
   }
-});
+}));
 
 /***/ }),
 
@@ -22712,10 +22780,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
-      'bg-green-600 hover:bg-lime-500': _ctx.selected
-    }, "cursor-pointer bg-red-900 hover:bg-yellow-300"]),
-    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("grid-row-start: ".concat($props.chair.row, "; grid-column-start: ").concat($props.chair.column)),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer", $options.colorClass]),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("grid-area: ".concat($props.chair.row, " / ").concat($props.chair.column, " / span 2 / span 2;")),
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleSelected && $options.toggleSelected.apply($options, arguments);
     })
@@ -22743,23 +22809,31 @@ var _hoisted_1 = {
   "class": "mt-6 flex flex-col sm:justify-center items-center overflow-auto"
 };
 var _hoisted_2 = {
-  "class": "w-[95%] h-5/6 min-w-[1400px] min-h-[720px] bg-black grid gap-2",
-  style: {
-    "grid-template-columns": "repeat(45, 1fr)",
-    "grid-template-rows": "repeat(26, 1fr)"
-  }
+  key: 0,
+  "class": "absolute top-0 left-0 w-full h-full"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.chairs, function (chair) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
+      'relative': !$props.selectEnabled
+    }, "w-full h-screen min-w-[1400px] min-h-[720px] bg-black grid gap-1"]),
+    style: {
+      "grid-template-columns": "repeat(192, 1fr)",
+      "grid-template-rows": "repeat(124, 1fr)"
+    }
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.chairs, function (chair) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Chair"], {
       key: chair.id,
-      chair: chair
+      chair: chair,
+      onToggleSelected: $options.toggleSelected
     }, null, 8
     /* PROPS */
-    , ["chair"]);
+    , ["chair", "onToggleSelected"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]);
+  )), !$props.selectEnabled ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+  /* CLASS */
+  )]);
 }
 
 /***/ }),
@@ -23965,18 +24039,34 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "min-h-screen bg-slate-900"
 };
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "px-4 py-3 text-right sm:px-6 border-t border-gray-600"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "submit",
+  "class": "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-200 text-slate-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+}, " Guardar ")], -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Navbar"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[0] || (_cache[0] = function () {
-      return _ctx.submit && _ctx.submit.apply(_ctx, arguments);
-    })
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
+    title: "Seleccionar sillas"
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Navbar"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.submit && $options.submit.apply($options, arguments);
+    }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Chairs"], {
-    chairs: $props.chairs
+    chairs: $props.chairs,
+    "select-enabled": true,
+    onToggleSelected: $options.manageChairSelection
   }, null, 8
   /* PROPS */
-  , ["chairs"])], 32
+  , ["chairs", "onToggleSelected"]), _hoisted_2], 32
   /* HYDRATE_EVENTS */
-  )]);
+  )])], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),
