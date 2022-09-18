@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Chair;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ChairSeeder extends Seeder
@@ -17,101 +16,99 @@ class ChairSeeder extends Seeder
     {
         $distribution = $this->distribution();
 
-        foreach ($distribution as $index => $row_scheme) {
-            $row = $row_scheme['row'];
-            $cells = $row_scheme['cells'];
-            $row_label = chr(ord('A') + $index);
-
-            foreach ($cells as $cell) {
-                $code = "{$row_label}-" . str_pad($cell, 2, '0', STR_PAD_LEFT);
-
-                Chair::create([
-                    'code' => $code,
-                    'row' => $row,
-                    'column' => $cell
-                ]);
-            }
+        foreach ($distribution as $chair_data) {
+            Chair::create($chair_data);
         }
     }
 
-    private function distribution() {
-        return array_merge(
-            array_map(
-                fn ($row) => [
-                    'row' => $row,
-                    'cells' => array_merge(range(2, 11), range(32, 44))
-                ],
-                range(2, 5)
-            ),
-            array_map(
-                fn ($row) => [
-                    'row' => $row,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(25, 30), range(32, 44))
-                ],
-                range(6, 7)
-            ),
-            [
+    private function distribution()
+    {
+        return [
+            ...$this->left_lateral()
+        ];
+    }
 
-                [
-                    'row' => 8,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 30), range(32, 43))
-                ],
-                [
-                    'row' => 9,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 30), range(32, 42))
-                ],
-                [
-                    'row' => 10,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 30), range(32, 41), range(44, 44))
-                ],
-                [
-                    'row' => 11,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 30), range(32, 40), range(43, 44))
-                ],
-                [
-                    'row' => 12,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 30), range(33, 39), range(42, 44))
-                ],
-                [
-                    'row' => 13,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 31), range(34, 38), range(41, 44))
-                ],
-                [
-                    'row' => 14,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 32), range(35, 37), range(40, 44))
-                ],
-                [
-                    'row' => 15,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 33), range(36, 36), range(39, 44))
-                ],
-                [
-                    'row' => 16,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 34), range(38, 44))
-                ],
-                [
-                    'row' => 17,
-                    'cells' => array_merge(range(2, 11), range(14, 22), range(24, 34), range(37, 44))
-                ],
-                [
-                    'row' => 18,
-                    'cells' => array_merge(range(3, 11), range(14, 22), range(24, 35), range(37, 44))
-                ],
-                [
-                    'row' => 19,
-                    'cells' => array_merge(range(5, 11), range(14, 22), range(24, 35), range(37, 44))
-                ],
-                [
-                    'row' => 20,
-                    'cells' => array_merge(range(14, 22), range(24, 35), range(37, 44))
-                ]
-            ],
-            array_map(
-                fn ($row) => [
-                    'row' => $row,
-                    'cells' => array_merge(range(14, 21), range(25, 35), range(37, 44))
-                ],
-                range(21, 25)
+    private function left_lateral(): array
+    {
+        $section_code = 'I';
+
+        $full_rows = [
+            // [start_row, start_column, seats_number, row_code]
+            [5, 59, 10, 'A'],
+            [5, 55, 12, 'B'],
+            [5, 51, 13, 'C'],
+            [5, 47, 13, 'D'],
+            [5, 43, 13, 'E'],
+            [5, 39, 14, 'F'],
+            [7, 35, 19, 'G'],
+            [7, 31, 19, 'H'],
+            [7, 27, 20, 'I'],
+            [7, 23, 22, 'J'],
+            [7, 19, 23, 'K'],
+            [7, 15, 24, 'L'],
+            [7, 11, 25, 'M'],
+            [7, 7, 28, 'N']
+        ];
+
+        $diagonals = [
+            // [start_row, start_column, seats_number, starting_seat_number, row_code]
+            [31, 47, 2, 14, 'D'],
+            [31, 43, 5, 14, 'E'],
+            [33, 39, 3, 15, 'F'],
+            [45, 35, 4, 20, 'G'],
+            [45, 31, 7, 20, 'H'],
+            [47, 27, 10, 21, 'I'],
+            [51, 23, 12, 23, 'J'],
+            [53, 19, 3, 24, 'K'],
+            [65, 26, 8, 27, 'K'],
+            [55, 15, 4, 25, 'L'],
+            [69, 23, 9, 29, 'L'],
+            [57, 11, 5, 26, 'M'],
+            [73, 20, 10, 31, 'M'],
+            [63, 7, 4, 29, 'N'],
+            [77, 15, 11, 33, 'N'],
+        ];
+
+        return [
+            ...array_merge(
+                ...array_map(
+                    function($row_options) use ($section_code) {
+                        $chairs = [];
+
+                        for ($i = 1; $i <= $row_options[2]; $i++) {
+                            $chairs[] = [
+                                'code' => "{$section_code}-{$row_options[3]}-{$i}",
+                                'row' => $row_options[0] + (2 * ($i - 1)),
+                                'column' => $row_options[1],
+                                'number' => $i
+                            ];
+                        }
+
+                        return $chairs;
+                    },
+                    $full_rows
+                ),
+                ...array_map(
+                    function($row_options) use ($section_code) {
+
+                        $chairs = [];
+
+                        for ($i = 1; $i <= $row_options[2]; $i++) {
+                            $chair_number = $row_options[3] + $i - 1;
+
+                            $chairs[] = [
+                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'row' => $row_options[0] + (2 * ($i - 1)),
+                                'column' => $row_options[1] + $i,
+                                'number' => $chair_number
+                            ];
+                        }
+
+                        return $chairs;
+                    },
+                    $diagonals
+                )
             )
-        );
+        ];
     }
 }

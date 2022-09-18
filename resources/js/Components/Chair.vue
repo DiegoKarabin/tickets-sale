@@ -2,8 +2,9 @@
     <div
         class="cursor-pointer"
         :class="colorClass"
-        :style="`grid-area: ${chair.row} / ${chair.column} / span 2 / span 2;`"
+        :style="`grid-area: ${chair.row} / ${chair.column} / span 2 / span 2; font-size: 11px`"
         @click="toggleSelected"
+        v-text="chair.number"
     ></div>
 </template>
 
@@ -11,16 +12,11 @@
 export default {
     computed: {
         colorClass () {
-            const selected = this.selected;
-            let output = 'bg-red-900 hover:bg-yellow-300';
+            if (this.occupied) return 'bg-gray-800 cursor-default hover:cursor-default';
 
-            if (this.occupied) {
-                output = 'bg-gray-800 cursor-default hover:cursor-default';
-            } else if (selected) {
-                output = 'bg-green-600 hover:bg-lime-500';
-            }
+            if (this.selected) return 'bg-green-600 hover:bg-lime-500';
 
-            return output;
+            return 'bg-red-900 hover:bg-yellow-300';
         },
         occupied () {
             return !!this.chair.order_id;
