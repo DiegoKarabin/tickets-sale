@@ -13,7 +13,7 @@ defineProps({
     <div class="mt-6 flex flex-col sm:justify-center items-center overflow-auto">
         <div
             :class="{ 'relative': !selectEnabled }"
-            class="w-full h-screen min-w-[1400px] min-h-[720px] grid gap-1"
+            class="w-full h-screen min-w-[1400px] min-h-[720px] grid gap-0"
             style="grid-template-columns: repeat(192, 1fr); grid-template-rows: repeat(101, 1fr); background: #9195ac;"
         >
             <Chair

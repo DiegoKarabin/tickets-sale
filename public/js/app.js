@@ -21585,9 +21585,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
     colorClass: function colorClass() {
-      if (this.occupied) return 'bg-gray-800 cursor-default hover:cursor-default';
+      if (this.occupied) return 'bg-black cursor-default hover:cursor-default';
       if (this.selected) return 'bg-green-600 hover:bg-lime-500';
-      return 'bg-red-900 hover:bg-yellow-300';
+      return 'bg-white hover:bg-yellow-300';
     },
     occupied: function occupied() {
       return !!this.chair.order_id;
@@ -22774,7 +22774,7 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = ["textContent"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer", $options.colorClass]),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer border border-black", $options.colorClass]),
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("grid-area: ".concat($props.chair.row, " / ").concat($props.chair.column, " / span 2 / span 2; font-size: 11px")),
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleSelected && $options.toggleSelected.apply($options, arguments);
@@ -22811,7 +22811,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'relative': !$props.selectEnabled
-    }, "w-full h-screen min-w-[1400px] min-h-[720px] grid gap-1"]),
+    }, "w-full h-screen min-w-[1400px] min-h-[720px] grid gap-0"]),
     style: {
       "grid-template-columns": "repeat(192, 1fr)",
       "grid-template-rows": "repeat(101, 1fr)",
