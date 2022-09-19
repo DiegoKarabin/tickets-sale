@@ -14,7 +14,7 @@ defineProps({
         <div
             :class="{ 'relative': !selectEnabled }"
             class="w-full h-screen min-w-[1400px] min-h-[720px] grid gap-1"
-            style="grid-template-columns: repeat(192, 1fr); grid-template-rows: repeat(124, 1fr); background: #9195ac;"
+            style="grid-template-columns: repeat(192, 1fr); grid-template-rows: repeat(101, 1fr); background: #9195ac;"
         >
             <Chair
                 v-for="chair of chairs"

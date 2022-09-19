@@ -25,7 +25,8 @@ class ChairSeeder extends Seeder
     {
         return [
             ...$this->left_lateral(),
-            ...$this->central()
+            ...$this->central(),
+            ...$this->right_lateral()
         ];
     }
 
@@ -67,7 +68,7 @@ class ChairSeeder extends Seeder
             [57, 11, 5, 26, 'M'],
             [73, 20, 10, 31, 'M'],
             [63, 7, 4, 29, 'N'],
-            [77, 15, 11, 33, 'N'],
+            [77, 15, 11, 33, 'N']
         ];
 
         return [
@@ -164,6 +165,90 @@ class ChairSeeder extends Seeder
                         return $chairs;
                     },
                     $rows
+                )
+            )
+        ];
+    }
+
+    private function right_lateral(): array
+    {
+        $section_code = 'D';
+
+        $full_rows = [
+            // [start_row, start_column, seats_number, row_code]
+            [7, 125, 10, 'A'],
+            [7, 129, 8, 'B'],
+            [7, 133, 8, 'C'],
+            [7, 137, 9, 'D'],
+            [7, 141, 10, 'E'],
+            [7, 145, 10, 'F'],
+            [7, 149, 11, 'G'],
+            [3, 153, 13, 'H'],
+            [3, 157, 14, 'I'],
+            [3, 161, 14, 'J'],
+            [3, 165, 15, 'K'],
+            [3, 169, 16, 'L'],
+            [3, 173, 17, 'M'],
+            [3, 177, 18, 'N']
+        ];
+
+        $diagonals = [
+            // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code]
+            [23, 133, 3, 9, 'C'],
+            [25, 137, 4, 10, 'D'],
+            [27, 141, 5, 11, 'E'],
+            [27, 145, 8, 11, 'F'],
+            [29, 149, 13, 12, 'G'],
+            [29, 153, 15, 14, 'H'],
+            [31, 157, 18, 15, 'I'],
+            [31, 161, 19, 15, 'J'],
+            [33, 165, 7, 16, 'K'],
+            [53, 155, 11, 23, 'K'],
+            [35, 169, 6, 17, 'L'],
+            [53, 160, 10, 23, 'L'],
+            [37, 173, 7, 18, 'M'],
+            [57, 163, 12, 25, 'M'],
+            [39, 177, 7, 19, 'N'],
+            [59, 167, 15, 26, 'N']
+        ];
+
+        return [
+            ...array_merge(
+                ...array_map(
+                    function($row_options) use ($section_code) {
+                        $chairs = [];
+
+                        for ($i = 1; $i <= $row_options[2]; $i++) {
+                            $chairs[] = [
+                                'code' => "{$section_code}-{$row_options[3]}-{$i}",
+                                'row' => $row_options[0] + (2 * ($i - 1)),
+                                'column' => $row_options[1],
+                                'number' => $i
+                            ];
+                        }
+
+                        return $chairs;
+                    },
+                    $full_rows
+                ),
+                ...array_map(
+                    function($row_options) use ($section_code) {
+                        $chairs = [];
+
+                        for ($i = 1; $i <= $row_options[2]; $i++) {
+                            $chair_number = $row_options[3] + $i - 1;
+
+                            $chairs[] = [
+                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'row' => $row_options[0] + (2 * ($i - 1)),
+                                'column' => $row_options[1] - $i,
+                                'number' => $chair_number
+                            ];
+                        }
+
+                        return $chairs;
+                    },
+                    $diagonals
                 )
             )
         ];

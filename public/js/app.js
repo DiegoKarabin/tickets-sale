@@ -22814,7 +22814,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, "w-full h-screen min-w-[1400px] min-h-[720px] grid gap-1"]),
     style: {
       "grid-template-columns": "repeat(192, 1fr)",
-      "grid-template-rows": "repeat(124, 1fr)",
+      "grid-template-rows": "repeat(101, 1fr)",
       "background": "#9195ac"
     }
   }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.chairs, function (chair) {
