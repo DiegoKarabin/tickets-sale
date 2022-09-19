@@ -24,7 +24,8 @@ class ChairSeeder extends Seeder
     private function distribution()
     {
         return [
-            ...$this->left_lateral()
+            ...$this->left_lateral(),
+            ...$this->central()
         ];
     }
 
@@ -90,7 +91,6 @@ class ChairSeeder extends Seeder
                 ),
                 ...array_map(
                     function($row_options) use ($section_code) {
-
                         $chairs = [];
 
                         for ($i = 1; $i <= $row_options[2]; $i++) {
@@ -107,6 +107,63 @@ class ChairSeeder extends Seeder
                         return $chairs;
                     },
                     $diagonals
+                )
+            )
+        ];
+    }
+
+    private function central(): array
+    {
+        $section_code = 'C';
+
+        $rows = [
+            // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code]
+            [29, 61, 32, 1, 'A'],
+            [33, 57, 30, 1, 'B'],
+            [37, 57, 30, 1, 'C'],
+            [41, 53, 34, 1, 'D'],
+            [45, 53, 21, 1, 'E'],
+            [45, 101, 12, 22, 'E'],
+            [49, 53, 21, 1, 'F'],
+            [49, 101, 13, 22, 'F'],
+            [53, 53, 21, 1, 'G'],
+            [53, 101, 14, 22, 'G'],
+            [57, 53, 21, 1, 'H'],
+            [57, 101, 15, 22, 'H'],
+            [61, 53, 21, 1, 'I'],
+            [61, 101, 16, 22, 'I'],
+            [65, 53, 21, 1, 'J'],
+            [65, 101, 17, 22, 'J'],
+            [69, 53, 21, 1, 'K'],
+            [69, 101, 19, 22, 'K'],
+            [73, 53, 21, 1, 'L'],
+            [73, 101, 20, 22, 'L'],
+            [77, 53, 21, 1, 'M'],
+            [77, 101, 21, 22, 'M'],
+            [81, 53, 20, 1, 'N'],
+            [81, 102, 21, 21, 'N'],
+        ];
+
+        return [
+            ...array_merge(
+                ...array_map(
+                    function($row_options) use ($section_code) {
+                        $chairs = [];
+
+                        for ($i = 1; $i <= $row_options[2]; $i++) {
+                            $chair_number = $row_options[3] + $i - 1;
+
+                            $chairs[] = [
+                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'row' => $row_options[0],
+                                'column' => $row_options[1] + (2 * ($i - 1)),
+                                'number' => $chair_number
+                            ];
+                        }
+
+                        return $chairs;
+                    },
+                    $rows
                 )
             )
         ];
