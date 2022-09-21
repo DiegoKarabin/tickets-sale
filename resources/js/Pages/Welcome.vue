@@ -29,7 +29,7 @@ defineProps({
         </div>
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <img :src="homeImageUrl" alt="Congreso Expansión">
+            <h1 class="text-6xl text-white uppercase font-black">Congreso Relevo</h1>
         </div>
     </div>
 </template>

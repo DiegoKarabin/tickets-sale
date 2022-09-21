@@ -52,12 +52,16 @@ export default {
                 selectedChairs.splice(index, 1);
             }
         },
-        submit () {
+        async submit () {
             const form = this.form;
 
-            if (form.selectedChairs.length > 0) {
-                form.post(route('chairs.occupy', { order_id: this.orderId }));
-            }
+            if (form.selectedChairs.length <= 0) return;
+
+            await form.post(route('chairs.occupy', { order_id: this.orderId }));
+
+            alert('Compra registrada exitosamente');
+
+            window.location.href = '/dashboard';
         }
     }
 };

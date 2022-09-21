@@ -7,7 +7,9 @@ const form = useForm({
     last_name: null,
     identification_number: null,
     phone: null,
-    team: null
+    church: null,
+    team: null,
+    promoter: null
 });
 
 const submit = () => {
@@ -53,9 +55,19 @@ const submit = () => {
                                             <input type="text" name="phone" id="phone" v-model="form.phone" autocomplete="phone" class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md" />
                                         </div>
 
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="church" class="block font-medium text-gray-300">Iglesia</label>
+                                            <input type="text" name="church" id="church" v-model="form.church" autocomplete="church" class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md" />
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
                                             <label for="team" class="block font-medium text-gray-300">Subred</label>
                                             <input type="text" name="team" id="team" v-model="form.team" autocomplete="team" class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md" />
+                                        </div>
+
+                                        <div class="col-span-6">
+                                            <label for="promoter" class="block font-medium text-gray-300">Promotor</label>
+                                            <input type="text" name="promoter" id="promoter" v-model="form.promoter" autocomplete="promoter" class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md" />
                                         </div>
 
                                         <div class="col-span-6">
