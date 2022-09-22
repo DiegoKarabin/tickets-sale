@@ -21646,6 +21646,20 @@ var __default__ = {
       this.$emit('toggle-selected', {
         id: id
       });
+    },
+    rowLabel: function rowLabel(_ref2) {
+      var section_code = _ref2.section_code,
+          row = _ref2.row,
+          column = _ref2.column;
+      if (section_code == 'C') return "grid-area: ".concat(row, " / ").concat(column - 2, " / span 2 / span 2");
+      return "grid-area: ".concat(row - 2, " / ").concat(column, " / span 2 / span 2");
+    }
+  },
+  computed: {
+    firstChairs: function firstChairs() {
+      return this.chairs.filter(function (chair) {
+        return chair.number == 1;
+      });
     }
   }
 };
@@ -21657,8 +21671,8 @@ var __default__ = {
     chairs: Array,
     selectEnabled: Boolean
   },
-  setup: function setup(__props, _ref2) {
-    var expose = _ref2.expose;
+  setup: function setup(__props, _ref3) {
+    var expose = _ref3.expose;
     expose();
     var __returned__ = {
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
@@ -22888,7 +22902,76 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "mt-6 flex flex-col sm:justify-center items-center overflow-auto"
 };
-var _hoisted_2 = {
+var _hoisted_2 = ["textContent"];
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl uppercase",
+  style: {
+    "grid-area": "7 / 2 / span 2 / span 2",
+    "writing-mode": "vertical-lr",
+    "text-orientation": "upright"
+  }
+}, " Izquierda ", -1
+/* HOISTED */
+);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl uppercase",
+  style: {
+    "grid-area": "7 / 180 / span 2 / span 2",
+    "writing-mode": "vertical-lr",
+    "text-orientation": "upright"
+  }
+}, " Derecha ", -1
+/* HOISTED */
+);
+
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl uppercase text-center",
+  style: {
+    "grid-area": "25 / 61 / span 2 / span 64"
+  }
+}, " Central ", -1
+/* HOISTED */
+);
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "text-2xl uppercase text-center bg-blue-900 text-white flex items-center justify-center",
+  style: {
+    "grid-area": "1 / 65 / span 8 / span 56"
+  }
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Altar")], -1
+/* HOISTED */
+);
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "bg-yellow-300",
+  style: {
+    "grid-area": "45 / 95 / span 6 / span 6"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "bg-yellow-300",
+  style: {
+    "grid-area": "59 / 22 / span 7 / span 5"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "bg-yellow-300",
+  style: {
+    "grid-area": "47 / 156 / span 6 / span 6"
+  }
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_10 = {
   key: 0,
   "class": "absolute top-0 left-0 w-full h-full"
 };
@@ -22912,7 +22995,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , ["chair", "onToggleSelected"]);
   }), 128
   /* KEYED_FRAGMENT */
-  )), !$props.selectEnabled ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Row letters "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.firstChairs, function (chair) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: chair.id,
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($options.rowLabel(chair)),
+      "class": "text-center font-black",
+      textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(chair.row_code)
+    }, null, 12
+    /* STYLE, PROPS */
+    , _hoisted_2);
+  }), 128
+  /* KEYED_FRAGMENT */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Section names "), _hoisted_3, _hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Altar "), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Camera equipement "), _hoisted_7, _hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Glass "), !$props.selectEnabled ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
   /* CLASS */
   )]);
 }

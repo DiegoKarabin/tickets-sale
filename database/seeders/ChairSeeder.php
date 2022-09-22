@@ -79,7 +79,8 @@ class ChairSeeder extends Seeder
 
                         for ($i = 1; $i <= $row_options[2]; $i++) {
                             $chairs[] = [
-                                'code' => "{$section_code}-{$row_options[3]}-{$i}",
+                                'section_code' => $section_code,
+                                'row_code' => $row_options[3],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1],
                                 'number' => $i
@@ -98,7 +99,8 @@ class ChairSeeder extends Seeder
                             $chair_number = $row_options[3] + $i - 1;
 
                             $chairs[] = [
-                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'section_code' => $section_code,
+                                'row_code' => $row_options[4],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1] + $i,
                                 'number' => $chair_number
@@ -155,7 +157,8 @@ class ChairSeeder extends Seeder
                             $chair_number = $row_options[3] + $i - 1;
 
                             $chairs[] = [
-                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'section_code' => $section_code,
+                                'row_code' => $row_options[4],
                                 'row' => $row_options[0],
                                 'column' => $row_options[1] + (2 * ($i - 1)),
                                 'number' => $chair_number
@@ -220,7 +223,8 @@ class ChairSeeder extends Seeder
 
                         for ($i = 1; $i <= $row_options[2]; $i++) {
                             $chairs[] = [
-                                'code' => "{$section_code}-{$row_options[3]}-{$i}",
+                                'section_code' => $section_code,
+                                'row_code' => $row_options[3],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1],
                                 'number' => $i
@@ -239,7 +243,8 @@ class ChairSeeder extends Seeder
                             $chair_number = $row_options[3] + $i - 1;
 
                             $chairs[] = [
-                                'code' => "{$section_code}-{$row_options[4]}-{$i}",
+                                'section_code' => $section_code,
+                                'row_code' => $row_options[4],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1] - $i,
                                 'number' => $chair_number

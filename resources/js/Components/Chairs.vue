@@ -22,6 +22,53 @@ defineProps({
                 :chair="chair"
                 @toggle-selected="toggleSelected"
             />
+
+            <!-- Row letters -->
+            <div
+                v-for="chair of firstChairs"
+                :key="chair.id"
+                :style="rowLabel(chair)"
+                class="text-center font-black"
+                v-text="chair.row_code"
+            >
+            </div>
+
+            <!-- Section names -->
+            <div
+                class="text-2xl uppercase"
+                style="grid-area: 7 / 2 / span 2 / span 2; writing-mode: vertical-lr; text-orientation: upright;"
+            >
+                Izquierda
+            </div>
+
+            <div
+                class="text-2xl uppercase"
+                style="grid-area: 7 / 180 / span 2 / span 2; writing-mode: vertical-lr; text-orientation: upright;"
+            >
+                Derecha
+            </div>
+
+            <div
+                class="text-2xl uppercase text-center"
+                style="grid-area: 25 / 61 / span 2 / span 64"
+            >
+                Central
+            </div>
+
+            <!-- Altar -->
+            <div
+                class="text-2xl uppercase text-center bg-blue-900 text-white flex items-center justify-center"
+                style="grid-area: 1 / 65 / span 8 / span 56"
+            >
+                <span>Altar</span>
+            </div>
+
+            <!-- Camera equipement -->
+            <div class="bg-yellow-300" style="grid-area: 45 / 95 / span 6 / span 6"></div>
+            <div class="bg-yellow-300" style="grid-area: 59 / 22 / span 7 / span 5"></div>
+            <div class="bg-yellow-300" style="grid-area: 47 / 156 / span 6 / span 6"></div>
+
+            <!-- Glass -->
             <div v-if="!selectEnabled" class="absolute top-0 left-0 w-full h-full"></div>
         </div>
     </div>
@@ -32,6 +79,17 @@ export default {
     methods: {
         toggleSelected ({ id }) {
             this.$emit('toggle-selected', { id });
+        },
+        rowLabel({section_code, row, column}) {
+            if (section_code == 'C') return `grid-area: ${row} / ${column - 2} / span 2 / span 2`;
+
+            return `grid-area: ${row - 2} / ${column} / span 2 / span 2`;
+
+        }
+    },
+    computed: {
+        firstChairs() {
+            return this.chairs.filter(chair => chair.number == 1);
         }
     }
 };
