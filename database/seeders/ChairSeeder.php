@@ -35,10 +35,10 @@ class ChairSeeder extends Seeder
         $section_code = 'I';
 
         $full_rows = [
-            // [start_row, start_column, seats_number, row_code]
-            [5, 59, 10, 'A'],
-            [5, 55, 12, 'B'],
-            [5, 51, 13, 'C'],
+            // [start_row, start_column, seats_number, row_code, type]
+            [5, 59, 10, 'A', 'PLATINUM'],
+            [5, 55, 12, 'B', 'VIP'],
+            [5, 51, 13, 'C', 'VIP'],
             [5, 47, 13, 'D'],
             [5, 43, 13, 'E'],
             [5, 39, 14, 'F'],
@@ -83,7 +83,8 @@ class ChairSeeder extends Seeder
                                 'row_code' => $row_options[3],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1],
-                                'number' => $i
+                                'number' => $i,
+                                'type' => isset($row_options[4]) ? $row_options[4] : 'GENERAL'
                             ];
                         }
 
@@ -120,11 +121,11 @@ class ChairSeeder extends Seeder
         $section_code = 'C';
 
         $rows = [
-            // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code]
-            [29, 61, 32, 1, 'A'],
-            [33, 57, 30, 1, 'B'],
-            [37, 57, 30, 1, 'C'],
-            [41, 53, 34, 1, 'D'],
+            // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code, type]
+            [29, 61, 32, 1, 'A', 'PLATINUM'],
+            [33, 57, 30, 1, 'B', 'SPONSOR'],
+            [37, 57, 30, 1, 'C', 'VIP'],
+            [41, 53, 34, 1, 'D', 'VIP'],
             [45, 53, 21, 1, 'E'],
             [45, 101, 12, 22, 'E'],
             [49, 53, 21, 1, 'F'],
@@ -161,7 +162,8 @@ class ChairSeeder extends Seeder
                                 'row_code' => $row_options[4],
                                 'row' => $row_options[0],
                                 'column' => $row_options[1] + (2 * ($i - 1)),
-                                'number' => $chair_number
+                                'number' => $chair_number,
+                                'type' => isset($row_options[5]) ? $row_options[5] : 'GENERAL'
                             ];
                         }
 
@@ -178,10 +180,10 @@ class ChairSeeder extends Seeder
         $section_code = 'D';
 
         $full_rows = [
-            // [start_row, start_column, seats_number, row_code]
-            [7, 125, 10, 'A'],
-            [7, 129, 8, 'B'],
-            [7, 133, 8, 'C'],
+            // [start_row, start_column, seats_number, row_code, type]
+            [7, 125, 10, 'A', 'PLATINUM'],
+            [7, 129, 8, 'B', 'VIP'],
+            [7, 133, 8, 'C', 'VIP'],
             [7, 137, 9, 'D'],
             [7, 141, 10, 'E'],
             [7, 145, 10, 'F'],
@@ -197,7 +199,7 @@ class ChairSeeder extends Seeder
 
         $diagonals = [
             // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code]
-            [23, 133, 3, 9, 'C'],
+            [23, 133, 3, 9, 'C', 'VIP'],
             [25, 137, 4, 10, 'D'],
             [27, 141, 5, 11, 'E'],
             [27, 145, 8, 11, 'F'],
@@ -227,7 +229,8 @@ class ChairSeeder extends Seeder
                                 'row_code' => $row_options[3],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1],
-                                'number' => $i
+                                'number' => $i,
+                                'type' => isset($row_options[4]) ? $row_options[4] : 'GENERAL'
                             ];
                         }
 
@@ -247,7 +250,8 @@ class ChairSeeder extends Seeder
                                 'row_code' => $row_options[4],
                                 'row' => $row_options[0] + (2 * ($i - 1)),
                                 'column' => $row_options[1] - $i,
-                                'number' => $chair_number
+                                'number' => $chair_number,
+                                'type' => isset($row_options[5]) ? $row_options[5] : 'GENERAL'
                             ];
                         }
 
