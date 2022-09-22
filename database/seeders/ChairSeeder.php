@@ -122,7 +122,7 @@ class ChairSeeder extends Seeder
 
         $rows = [
             // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code, type]
-            [29, 61, 32, 1, 'A', 'PLATINUM'],
+            [29, 61, 30, 1, 'A', 'PLATINUM'],
             [33, 57, 30, 1, 'B', 'SPONSOR'],
             [37, 57, 30, 1, 'C', 'VIP'],
             [41, 53, 34, 1, 'D', 'VIP'],
@@ -199,7 +199,7 @@ class ChairSeeder extends Seeder
 
         $diagonals = [
             // [start_row, start_column, seats_numbers, starting_seat_numbers, row_code]
-            [23, 133, 3, 9, 'C', 'VIP'],
+            [23, 133, 2, 9, 'C', 'VIP'],
             [25, 137, 4, 10, 'D'],
             [27, 141, 5, 11, 'E'],
             [27, 145, 8, 11, 'F'],

@@ -21596,9 +21596,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   computed: {
     colorClass: function colorClass() {
-      if (this.occupied) return 'bg-black cursor-default hover:cursor-default';
+      if (this.occupied) return 'bg-orange-600 cursor-default hover:cursor-default';
       if (this.selected) return 'bg-green-600 hover:bg-lime-500';
-      return 'bg-white hover:bg-yellow-300';
+      if (this.chair.type == 'PLATINUM') return 'bg-pink-600 hover:bg-pink-300';
+      if (this.chair.type == 'VIP') return 'bg-indigo-600 hover:bg-indigo-300';
+      if (this.chair.type == 'SPONSOR') return 'bg-teal-300 hover:bg-teal-600';
+      return 'bg-white hover:bg-gray-400';
     },
     occupied: function occupied() {
       return !!this.chair.order_id;
@@ -22873,7 +22876,7 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = ["textContent"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer border border-black", $options.colorClass]),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["cursor-pointer border border-black text-center", $options.colorClass]),
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("grid-area: ".concat($props.chair.row, " / ").concat($props.chair.column, " / span 2 / span 2; font-size: 11px")),
     onClick: _cache[0] || (_cache[0] = function () {
       return $options.toggleSelected && $options.toggleSelected.apply($options, arguments);
@@ -22971,7 +22974,9 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_10 = {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-2xl uppercase text-center\" style=\"grid-area:89 / 61 / span 2 / span 64;\"> Leyenda </div><div class=\"bg-pink-600 border border-black\" style=\"grid-area:95 / 53 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 56 / span 2 / span 8;\">Platinum</div><div class=\"bg-indigo-600 border border-black\" style=\"grid-area:95 / 67 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 70 / span 2 / span 8;\">VIP</div><div class=\"bg-teal-300 border border-black\" style=\"grid-area:95 / 75 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 78 / span 2 / span 8;\">Patrocinante</div><div class=\"bg-white border border-black\" style=\"grid-area:95 / 94 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 97 / span 2 / span 8;\">General</div><div class=\"bg-orange-600 border border-black\" style=\"grid-area:95 / 107 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 110 / span 2 / span 8;\">Ocupada</div><div class=\"bg-purple-600 border border-black\" style=\"grid-area:95 / 121 / span 2 / span 2;\"></div><div class=\"text-lg uppercase\" style=\"grid-area:95 / 124 / span 2 / span 8;\">Reservada</div>", 13);
+
+var _hoisted_23 = {
   key: 0,
   "class": "absolute top-0 left-0 w-full h-full"
 };
@@ -22981,7 +22986,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       'relative': !$props.selectEnabled
     }, "w-full h-screen min-w-[1400px] min-h-[720px] grid gap-0"]),
     style: {
-      "grid-template-columns": "repeat(192, 1fr)",
+      "grid-template-columns": "repeat(184, 1fr)",
       "grid-template-rows": "repeat(101, 1fr)",
       "background": "#9195ac"
     }
@@ -23006,7 +23011,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_2);
   }), 128
   /* KEYED_FRAGMENT */
-  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Section names "), _hoisted_3, _hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Altar "), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Camera equipement "), _hoisted_7, _hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Glass "), !$props.selectEnabled ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Section names "), _hoisted_3, _hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Altar "), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Camera equipement "), _hoisted_7, _hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Captions "), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Glass "), !$props.selectEnabled ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_23)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 2
   /* CLASS */
   )]);
 }
