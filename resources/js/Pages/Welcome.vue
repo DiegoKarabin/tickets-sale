@@ -1,11 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 
-defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    homeImageUrl: String
-})
+defineProps({ canLogin: Boolean })
 </script>
 
 <template>
@@ -20,10 +16,6 @@ defineProps({
             <template v-else>
                 <Link :href="route('login')" class="inline-block text-white border border-white rounded p-2">
                     Iniciar sesión
-                </Link>
-
-                <Link v-if="canRegister" :href="route('register')" class="ml-4 inline-block text-slate-900 border border-white rounded p-2 bg-white">
-                    Regístrate
                 </Link>
             </template>
         </div>

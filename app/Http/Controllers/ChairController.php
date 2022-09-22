@@ -8,6 +8,11 @@ use Inertia\Inertia;
 
 class ChairController extends Controller
 {
+    public function index()
+    {
+        return Inertia::render('Chairs/Index', ['chairs' => Chair::all()]);
+    }
+
     public function select(Request $request)
     {
         $order_id = $request->query('order_id');

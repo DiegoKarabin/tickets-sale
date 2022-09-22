@@ -20,13 +20,14 @@ use Inertia\Inertia;
 
 Route::get('/', fn () => Inertia::render('Welcome', [
     'canLogin' => Route::has('login'),
-    'canRegister' => Route::has('register'),
-    'homeImageUrl' => url('images/congreso-expansion.jpg')
 ]));
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+
     Route::resource('orders', OrderController::class);
+    Route::resource('chairs', ChairController::class)->only(['index']);
+
     Route::get('/chairs/select', [ChairController::class, 'select'])->name('chairs.select');
     Route::post('/chairs/occupy', [ChairController::class, 'occupy'])->name('chairs.occupy');
 });
