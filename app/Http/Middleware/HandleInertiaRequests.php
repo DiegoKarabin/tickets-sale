@@ -41,6 +41,10 @@ class HandleInertiaRequests extends Middleware
             'ziggy' => function () {
                 return (new Ziggy)->toArray();
             },
+            'locale' => fn() => app()->getLocale(),
+            'language' => fn() => translations(
+                resource_path('lang/' . app()->getLocale() . '.json')
+            )
         ]);
     }
 }
