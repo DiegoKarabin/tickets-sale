@@ -22733,6 +22733,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_Authenticated_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/Authenticated.vue */ "./resources/js/Layouts/Authenticated.vue");
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 var __default__ = {
+  data: function data() {
+    return {
+      couponsQuantity: 0
+    };
+  },
   props: {
     errors: Object
   },
@@ -22741,6 +22746,14 @@ var __default__ = {
       return {
         'border-2 border-rose-600': error
       };
+    },
+    updateCouponsMap: function updateCouponsMap() {
+      var difference = this.couponsQuantity - this.form.coupons.length;
+
+      for (var i = 0; i < Math.abs(difference); i++) {
+        if (difference > 0) this.form.coupons.push('');
+        if (difference < 0) this.form.coupons.pop();
+      }
     }
   }
 };
@@ -22757,7 +22770,8 @@ var __default__ = {
       phone: null,
       church: null,
       team: null,
-      promoter: null
+      promoter: null,
+      coupons: []
     });
 
     var submit = function submit() {
@@ -24492,7 +24506,7 @@ var _hoisted_27 = {
   "class": "text-red-600"
 };
 var _hoisted_28 = {
-  "class": "col-span-6"
+  "class": "col-span-6 sm:col-span-3"
 };
 
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -24507,9 +24521,22 @@ var _hoisted_30 = {
   "class": "text-red-600"
 };
 var _hoisted_31 = {
+  "class": "col-span-6 sm:col-span-3"
+};
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "coupons-quantity",
+  "class": "block font-medium text-gray-300"
+}, " Cantidad de cupones comprados ", -1
+/* HOISTED */
+);
+
+var _hoisted_33 = ["for", "textContent"];
+var _hoisted_34 = ["id", "name", "onUpdate:modelValue"];
+var _hoisted_35 = {
   "class": "col-span-6"
 };
-var _hoisted_32 = ["disabled"];
+var _hoisted_36 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Head"], {
     title: "Registrar compra"
@@ -24611,13 +24638,49 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* CLASS */
       ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.promoter]]), $props.errors.promoter ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.errors.promoter), 1
       /* TEXT */
-      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "number",
+        name: "coupons_quantity",
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+          return _ctx.couponsQuantity = $event;
+        }),
+        "class": "mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md",
+        onChange: _cache[8] || (_cache[8] = function () {
+          return $options.updateCouponsMap && $options.updateCouponsMap.apply($options, arguments);
+        }),
+        min: "1"
+      }, null, 544
+      /* HYDRATE_EVENTS, NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.couponsQuantity]])]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.form.coupons, function (_, i) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          key: i,
+          "class": "col-span-6 sm:col-span-3"
+        }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+          "for": "coupon-".concat(i + 1),
+          "class": "block font-medium text-gray-300",
+          textContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("Cup\xF3n #".concat(i + 1))
+        }, null, 8
+        /* PROPS */
+        , _hoisted_33), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+          id: "coupon-".concat(i + 1),
+          type: "text",
+          name: "coupons[".concat(i, "]"),
+          "onUpdate:modelValue": function onUpdateModelValue($event) {
+            return $setup.form.coupons[i] = $event;
+          },
+          "class": "mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md"
+        }, null, 8
+        /* PROPS */
+        , _hoisted_34), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.coupons[i]]])]);
+      }), 128
+      /* KEYED_FRAGMENT */
+      )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
         type: "submit",
         disabled: $setup.form.processing,
         "class": "w-full inline-block border border-gray-600 rounded p-3 text-center text-lg text-gray-400 hover:bg-slate-600 hover:cursor-pointer"
       }, " Selecionar sillas ", 8
       /* PROPS */
-      , _hoisted_32)])])])])], 40
+      , _hoisted_36)])])])])], 40
       /* PROPS, HYDRATE_EVENTS */
       , _hoisted_6)])])])])];
     }),

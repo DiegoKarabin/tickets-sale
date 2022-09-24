@@ -9,7 +9,8 @@ const form = useForm({
     phone: null,
     church: null,
     team: null,
-    promoter: null
+    promoter: null,
+    coupons: []
 });
 
 const submit = () => {
@@ -143,7 +144,7 @@ const submit = () => {
                                             </span>
                                         </div>
 
-                                        <div class="col-span-6">
+                                        <div class="col-span-6 sm:col-span-3">
                                             <label for="promoter" class="block font-medium text-gray-300">
                                                 Promotor
                                             </label>
@@ -159,6 +160,36 @@ const submit = () => {
                                             <span v-if="errors.promoter" class="text-red-600">
                                                 {{ errors.promoter }}
                                             </span>
+                                        </div>
+
+                                        <div class="col-span-6 sm:col-span-3">
+                                            <label for="coupons-quantity" class="block font-medium text-gray-300">
+                                                Cantidad de cupones comprados
+                                            </label>
+                                            <input
+                                                type="number"
+                                                name="coupons_quantity"
+                                                v-model="couponsQuantity"
+                                                class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md"
+                                                @change="updateCouponsMap"
+                                                min="1"
+                                            />
+                                        </div>
+
+                                        <div v-for="(_, i) of form.coupons" :key="i" class="col-span-6 sm:col-span-3">
+                                            <label
+                                                :for="`coupon-${i + 1}`"
+                                                class="block font-medium text-gray-300"
+                                                v-text="`Cupón #${i + 1}`"
+                                            >
+                                            </label>
+                                            <input
+                                                :id="`coupon-${i + 1}`"
+                                                type="text"
+                                                :name="`coupons[${i}]`"
+                                                v-model="form.coupons[i]"
+                                                class="mt-1 bg-slate-700 text-gray-300 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-600 rounded-md"
+                                            />
                                         </div>
 
                                         <div class="col-span-6">
@@ -179,12 +210,24 @@ const submit = () => {
 
 <script>
 export default {
+    data: () => ({
+        couponsQuantity: 0
+    }),
     props: {
         errors: Object
     },
     methods: {
         errorClass(error) {
             return { 'border-2 border-rose-600': error };
+        },
+        updateCouponsMap() {
+            const difference = this.couponsQuantity - this.form.coupons.length;
+
+            for (let i = 0; i < Math.abs(difference); i++) {
+                if (difference > 0) this.form.coupons.push('');
+
+                if (difference < 0) this.form.coupons.pop();
+            }
         }
     }
 }
