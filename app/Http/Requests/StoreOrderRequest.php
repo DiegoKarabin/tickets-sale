@@ -26,14 +26,12 @@ class StoreOrderRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'identification_number' => 'required',
-            'phone' => [
-                'required',
-                'regex:/^(0|\+\d{2,3})\d{10}/'
-            ],
+            'identification_number' => 'required|numeric',
+            'phone' => 'required|numeric',
             'church' => 'required',
             'team' => 'required',
-            'promoter' => 'required'
+            'promoter' => 'required',
+            'coupons' => 'required|array|min:1'
         ];
     }
 }

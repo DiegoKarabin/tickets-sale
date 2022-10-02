@@ -5,6 +5,7 @@ import Chair from '@/Components/Chair.vue';
 
 defineProps({
     chairs: Array,
+    selectedChairs: Array,
     selectEnabled: Boolean
 })
 </script>
@@ -20,6 +21,7 @@ defineProps({
                 v-for="chair of chairs"
                 :key="chair.id"
                 :chair="chair"
+                :selected="selectEnabled && isChairSelected(chair)"
                 @toggle-selected="toggleSelected"
             />
 
@@ -79,13 +81,13 @@ defineProps({
             <div class="text-lg uppercase" style="grid-area: 95 / 56 / span 2 / span 8">Platinum</div>
             <div class="bg-indigo-600 border border-black" style="grid-area: 95 / 67 / span 2 / span 2"></div>
             <div class="text-lg uppercase" style="grid-area: 95 / 70 / span 2 / span 8">VIP</div>
-            <div class="bg-teal-300 border border-black" style="grid-area: 95 / 75 / span 2 / span 2"></div>
+            <div class="bg-orange-400 border border-black" style="grid-area: 95 / 75 / span 2 / span 2"></div>
             <div class="text-lg uppercase" style="grid-area: 95 / 78 / span 2 / span 8">Patrocinante</div>
             <div class="bg-white border border-black" style="grid-area: 95 / 94 / span 2 / span 2"></div>
             <div class="text-lg uppercase" style="grid-area: 95 / 97 / span 2 / span 8">General</div>
-            <div class="bg-orange-600 border border-black" style="grid-area: 95 / 107 / span 2 / span 2"></div>
+            <div class="bg-teal-300 border border-black" style="grid-area: 95 / 107 / span 2 / span 2"></div>
             <div class="text-lg uppercase" style="grid-area: 95 / 110 / span 2 / span 8">Ocupada</div>
-            <div class="bg-purple-600 border border-black" style="grid-area: 95 / 121 / span 2 / span 2"></div>
+            <div class="bg-violet-400 border border-black" style="grid-area: 95 / 121 / span 2 / span 2"></div>
             <div class="text-lg uppercase" style="grid-area: 95 / 124 / span 2 / span 8">Reservada</div>
 
             <!-- Glass -->
@@ -104,7 +106,9 @@ export default {
             if (section_code == 'C') return `grid-area: ${row} / ${column - 2} / span 2 / span 2`;
 
             return `grid-area: ${row - 2} / ${column} / span 2 / span 2`;
-
+        },
+        isChairSelected({ id }) {
+            return this.selectedChairs.includes(id);
         }
     },
     computed: {

@@ -44,7 +44,10 @@ class HandleInertiaRequests extends Middleware
             'locale' => fn() => app()->getLocale(),
             'language' => fn() => translations(
                 resource_path('lang/' . app()->getLocale() . '.json')
-            )
+            ),
+            'flash' => [
+                'notice' => session('notice')
+            ]
         ]);
     }
 }

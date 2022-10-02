@@ -12,7 +12,7 @@
 export default {
     computed: {
         colorClass () {
-            if (this.occupied) return 'bg-orange-600 cursor-default hover:cursor-default';
+            if (this.occupied) return 'bg-teal-300 cursor-default hover:cursor-default';
 
             if (this.selected) return 'bg-green-600 hover:bg-lime-500';
 
@@ -20,7 +20,7 @@ export default {
 
             if (this.chair.type == 'VIP') return 'bg-indigo-600 hover:bg-indigo-300';
 
-            if (this.chair.type == 'SPONSOR') return 'bg-teal-300 hover:bg-teal-600';
+            if (this.chair.type == 'SPONSOR') return 'bg-orange-400 hover:bg-orange-300';
 
             return 'bg-white hover:bg-gray-400';
         },
@@ -28,17 +28,13 @@ export default {
             return !!this.chair.order_id;
         }
     },
-    data: () => ({
-        selected: false
-    }),
     props: {
-        chair: Object
+        chair: Object,
+        selected: Boolean
     },
     methods: {
         toggleSelected () {
             if (this.occupied) return;
-
-            this.selected = !this.selected;
 
             this.$emit('toggle-selected', { id: this.chair.id });
         }

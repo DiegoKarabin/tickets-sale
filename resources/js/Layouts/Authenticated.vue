@@ -1,5 +1,10 @@
 <script setup>
+import { ref } from '@vue/reactivity'
 import Navbar from '@/Components/Navbar.vue'
+import Notification from '@/Components/Notification.vue'
+
+const dynamicClasses = ref({});
+const hideNotification = ref(false);
 </script>
 
 <template>
@@ -18,6 +23,29 @@ import Navbar from '@/Components/Navbar.vue'
             <main>
                 <slot />
             </main>
+
+            <!-- Notification -->
+            <Notification
+                v-if="$page.props.flash.notice && !hideNotification"
+                class=" transition-opacity duration-1000"
+                :class="dynamicClasses"
+            />
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    async mounted() {
+        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+        await wait(3000);
+
+        this.dynamicClasses['opacity-0'] = true;
+
+        await wait(1001);
+
+        this.hideNotification = true;
+    }
+}
+</script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
+use App\Models\Coupon;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -37,7 +38,14 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $order = Order::create($request->validated());
+        $order = Order::create($this->orderParams($request));
+
+        foreach ($request->safe()->only('coupons')['coupons'] as $coupon_code) {
+            Coupon::create([
+                'code' => $coupon_code,
+                'order_id' => $order->id
+            ]);
+        }
 
         return redirect(route('chairs.select', ['order_id' => $order->id]));
     }
@@ -85,5 +93,21 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function orderParams(StoreOrderRequest $request)
+    {
+        return [
+            ...$request->safe()->only(
+                'first_name',
+                'last_name',
+                'identification_number',
+                'phone',
+                'church',
+                'team',
+                'promoter'
+            ),
+            'user_id' => auth()->user()->id
+        ];
     }
 }

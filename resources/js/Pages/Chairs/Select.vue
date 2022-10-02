@@ -5,7 +5,8 @@ import Chairs from '@/Components/Chairs.vue';
 
 defineProps({
     chairs: Array,
-    orderId: Number
+    couponsCount: Number,
+    orderId: Number,
 })
 
 const form = useForm({
@@ -21,6 +22,7 @@ const form = useForm({
         <form @submit.prevent="submit">
             <Chairs
                 :chairs="chairs"
+                :selected-chairs="form.selectedChairs"
                 :select-enabled="true"
                 @toggle-selected="manageChairSelection"
             />
@@ -38,30 +40,32 @@ const form = useForm({
 
 <script>
 export default {
-    data: () => ({
-        selectedChairs: []
-    }),
     methods: {
         manageChairSelection ({ id }) {
             const selectedChairs = this.form.selectedChairs;
             const index = selectedChairs.indexOf(id);
 
-            if (index == -1) {
-                selectedChairs.push(id);
-            } else {
+            if (index >= 0) {
                 selectedChairs.splice(index, 1);
+                return;
             }
+
+            if (selectedChairs.length >= this.couponsCount) return;
+
+            selectedChairs.push(id);
         },
         async submit () {
             const form = this.form;
+            const couponsCount = this.couponsCount
 
-            if (form.selectedChairs.length <= 0) return;
+            if (form.selectedChairs.length != couponsCount) {
+                alert(`Debe seleccionar ${couponsCount} sillas.`);
+                return;
+            }
+
+            if (!confirm('¿Está seguro de ocupar las sillas seleccionadas?')) return;
 
             await form.post(route('chairs.occupy', { order_id: this.orderId }));
-
-            alert('Compra registrada exitosamente');
-
-            window.location.href = '/dashboard';
         }
     }
 };
