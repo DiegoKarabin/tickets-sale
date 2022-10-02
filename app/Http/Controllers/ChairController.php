@@ -31,7 +31,12 @@ class ChairController extends Controller
         $order_id = $request->query('order_id');
         $selected_chairs = $request->input('selectedChairs');
 
-        Chair::whereIn('id', $selected_chairs)->update(['order_id' => $order_id]);
+        $chairs_query = Chair::whereIn('id', $selected_chairs);
+        $chairs_query->update(['order_id' => $order_id]);
+        $chairs = $chairs_query->get();
+        $coupons = Coupon::where('order_id', $order_id)->get();
+
+        for ($i = 0; $i < sizeof($chairs); $i++) $coupons[$i]->update(['chair_id' => $chairs[$i]->id]);
 
         return redirect(route('dashboard'))
             ->with('notice', 'Compra registrada exitosamente.');
